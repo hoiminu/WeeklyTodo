@@ -14,6 +14,8 @@
   padding: var(--sp-5);
   margin-bottom: var(--sp-4);
   box-shadow: var(--shadow-sm);
+  border-top: 4px solid;
+  border-image: linear-gradient(90deg, #4A8ED9, #B5A878, #FFE633, #FFB8CF, #8B5C3A, #D8E2F0, #2D6B1E, #DBB08A) 1;
 }
 
 .header__top {
@@ -78,14 +80,14 @@
 
 .progress__fill {
   height: 100%;
-  background: var(--blue);
+  background: linear-gradient(90deg, #4A8ED9, #2D6B1E, #D4B830);
   border-radius: var(--radius-full);
   width: 0%;
-  transition: width 400ms var(--ease), background-color 300ms var(--ease);
+  transition: width 400ms var(--ease);
 }
 
 .progress__fill--done {
-  background: var(--success);
+  background: linear-gradient(90deg, #2D6B1E, #4A8ED9, #D4B830);
 }
 
 /* Filters */
@@ -135,6 +137,15 @@
   align-items: center;
   user-select: none;
 }
+
+/* Per-day colored headers */
+.day-col:nth-child(1) .day-col__header { background: #D8E2F0; color: #2C4A6E; } /* Mon - lavender */
+.day-col:nth-child(2) .day-col__header { background: #E0D9C0; color: #5C4A1E; } /* Tue - olive */
+.day-col:nth-child(3) .day-col__header { background: #FFF3B0; color: #6B5A10; } /* Wed - yellow */
+.day-col:nth-child(4) .day-col__header { background: #FFD9E6; color: #7A3045; } /* Thu - pink */
+.day-col:nth-child(5) .day-col__header { background: #F0DCC4; color: #6B3E1F; } /* Fri - peach */
+.day-col:nth-child(6) .day-col__header { background: #D6EACD; color: #2D5A1E; } /* Sat - green */
+.day-col:nth-child(7) .day-col__header { background: #E0D3C0; color: #5C3A1E; } /* Sun - brown */
 
 .day-col__header .day-label__full {
   display: inline;
@@ -193,7 +204,7 @@
 .month-grid__header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background: var(--border-light);
+  background: linear-gradient(90deg, #D8E2F0, #E0D9C0, #FFF3B0, #FFD9E6, #F0DCC4, #D6EACD, #E0D3C0);
   border-bottom: 1px solid var(--border);
 }
 
@@ -201,7 +212,7 @@
   padding: var(--sp-3) var(--sp-2);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -233,13 +244,13 @@
 }
 
 .month-cell--today {
-  background: #EFF6FF;
+  background: #D8E2F0;
 }
 
 .month-cell--today .month-cell__date {
   background: var(--blue);
   color: #fff;
-  border-radius: 50%;
+  border-radius: 2px;
   width: 30px;
   height: 30px;
   display: flex;
@@ -252,7 +263,7 @@
 }
 
 .month-cell--weekend:hover {
-  background: #E8ECF2;
+  background: #D0CABC;
 }
 
 .month-cell--outside {
@@ -403,6 +414,7 @@
   .month-cell--today .month-cell__date {
     width: 20px;
     height: 20px;
+    border-radius: 2px;
   }
 
   .month-detail {

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#E8E3D9"/>
+  <rect x="8" y="0" width="496" height="8" rx="4" fill="url(#stripe)"/>
+  <defs>
+    <linearGradient id="stripe" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4A8ED9"/>
+      <stop offset="25%" stop-color="#FFE633"/>
+      <stop offset="50%" stop-color="#FFB8CF"/>
+      <stop offset="75%" stop-color="#2D6B1E"/>
+      <stop offset="100%" stop-color="#DBB08A"/>
+    </linearGradient>
+  </defs>
+  <!-- Checkbox 1 - checked -->
+  <rect x="100" y="140" width="52" height="52" rx="6" fill="#4A8ED9"/>
+  <polyline points="116,168 128,180 144,156" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="148" width="220" height="14" rx="4" fill="#8B5C3A" opacity="0.5"/>
+  <line x1="180" y1="155" x2="360" y2="155" stroke="#8B5C3A" stroke-width="2" opacity="0.3"/>
+  <!-- Checkbox 2 - checked -->
+  <rect x="100" y="230" width="52" height="52" rx="6" fill="#2D6B1E"/>
+  <polyline points="116,258 128,270 144,246" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="238" width="180" height="14" rx="4" fill="#8B5C3A" opacity="0.5"/>
+  <line x1="180" y1="245" x2="330" y2="245" stroke="#8B5C3A" stroke-width="2" opacity="0.3"/>
+  <!-- Checkbox 3 - unchecked -->
+  <rect x="100" y="320" width="52" height="52" rx="6" fill="none" stroke="#CEC8B8" stroke-width="4"/>
+  <rect x="180" y="328" width="240" height="14" rx="4" fill="#2C2416" opacity="0.25"/>
+  <!-- Small color dots -->
+  <circle cx="400" cy="155" r="10" fill="#FFB8CF"/>
+  <circle cx="380" cy="245" r="10" fill="#D4B830"/>
+  <circle cx="400" cy="345" r="10" fill="#4A8ED9"/>
+</svg>

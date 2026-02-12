@@ -4,10 +4,10 @@ const Categories = (() => {
   const STYLE_ID = 'categoryStyles';
 
   const DEFAULTS = [
-    { id: 'work',     name: 'Work',     color: '#3B82F6' },
-    { id: 'personal', name: 'Personal', color: '#8B5CF6' },
-    { id: 'health',   name: 'Health',   color: '#10B981' },
-    { id: 'learning', name: 'Learning', color: '#F59E0B' },
+    { id: 'work',     name: 'Work',     color: '#4A8ED9' },
+    { id: 'personal', name: 'Personal', color: '#FFB8CF' },
+    { id: 'health',   name: 'Health',   color: '#2D6B1E' },
+    { id: 'learning', name: 'Learning', color: '#D4B830' },
   ];
 
   function _load() {
@@ -41,7 +41,7 @@ const Categories = (() => {
 
   function getColor(id) {
     const cat = get(id);
-    return cat ? cat.color : '#94A3B8';
+    return cat ? cat.color : '#B5A878';
   }
 
   function getName(id) {
