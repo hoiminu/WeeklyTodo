@@ -1,0 +1,411 @@
+/* App shell, grid, containers, responsive */
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--sp-4);
+  min-height: 100dvh;
+}
+
+/* Header */
+.header {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.header__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.header__week-label {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text);
+  min-width: 180px;
+  text-align: center;
+}
+
+/* Progress */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.progress__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress__label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.progress__pct {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.progress__track {
+  height: 6px;
+  background: var(--border-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: var(--radius-full);
+  width: 0%;
+  transition: width 400ms var(--ease), background-color 300ms var(--ease);
+}
+
+.progress__fill--done {
+  background: var(--success);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+/* Weekly grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--sp-3);
+  align-items: start;
+}
+
+/* Day column */
+.day-col {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.day-col--weekend {
+  background: var(--weekend-bg);
+}
+
+.day-col--today .day-col__header {
+  background: var(--blue);
+  color: #fff;
+}
+
+.day-col__header {
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.day-col__header .day-label__full {
+  display: inline;
+}
+
+.day-col__header .day-label__short {
+  display: none;
+}
+
+.day-col__body {
+  padding: var(--sp-2);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.day-col__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  padding: var(--sp-6) var(--sp-2);
+}
+
+/* Mobile collapse toggle */
+.day-col__toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: var(--sp-1);
+  line-height: 1;
+  transition: transform var(--duration) var(--ease);
+}
+
+.day-col__toggle--collapsed {
+  transform: rotate(-90deg);
+}
+
+/* ── Month grid ─────────────────────────── */
+.grid--month {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.month-grid__header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--border-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.month-grid__dow {
+  padding: var(--sp-3) var(--sp-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.month-grid__row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.month-cell {
+  min-height: 110px;
+  padding: var(--sp-3);
+  cursor: pointer;
+  transition: background var(--duration) var(--ease);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.month-cell:last-child {
+  border-right: none;
+}
+
+.month-cell:hover {
+  background: var(--blue-light);
+}
+
+.month-cell--today {
+  background: #EFF6FF;
+}
+
+.month-cell--today .month-cell__date {
+  background: var(--blue);
+  color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-cell--weekend {
+  background: var(--weekend-bg);
+}
+
+.month-cell--weekend:hover {
+  background: #E8ECF2;
+}
+
+.month-cell--outside {
+  opacity: 0.35;
+}
+
+.month-cell--expanded {
+  background: var(--blue-light);
+  box-shadow: inset 0 -2px 0 var(--blue);
+}
+
+.month-cell--dragover {
+  background: var(--blue-light);
+  outline: 2px dashed var(--blue);
+  outline-offset: -2px;
+}
+
+.month-cell__date {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+
+.month-cell__tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+  align-items: center;
+  margin-top: auto;
+}
+
+.month-cell__more {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Expanded day detail */
+.month-detail {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+  animation: monthDetailIn 200ms var(--ease);
+}
+
+@keyframes monthDetailIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.month-detail__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-3);
+}
+
+.month-detail__date {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.month-detail__count {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.month-detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .day-col__header .day-label__full {
+    display: none;
+  }
+  .day-col__header .day-label__short {
+    display: inline;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: var(--sp-3);
+  }
+
+  .grid:not(.grid--month) {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+  }
+
+  .day-col {
+    min-height: unset;
+  }
+
+  .day-col__header {
+    cursor: pointer;
+  }
+
+  .day-col__toggle {
+    display: block;
+  }
+
+  .day-col__body--collapsed {
+    display: none;
+  }
+
+  .day-col__header .day-label__full {
+    display: inline;
+  }
+
+  .day-col__header .day-label__short {
+    display: none;
+  }
+
+  .header__top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header__week-label {
+    min-width: unset;
+    font-size: var(--text-sm);
+  }
+
+  /* Month grid mobile */
+  .month-cell {
+    min-height: 56px;
+    padding: var(--sp-1);
+  }
+
+  .month-cell__date {
+    font-size: var(--text-xs);
+  }
+
+  .month-cell--today .month-cell__date {
+    width: 20px;
+    height: 20px;
+  }
+
+  .month-detail {
+    padding: var(--sp-3);
+  }
+}

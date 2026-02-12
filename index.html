@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly To-Do Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header__top">
+        <h1 class="header__title">Weekly To-Do</h1>
+        <div class="header__nav">
+          <button class="sticker-book-btn" id="stickerBookBtn" title="Sticker Collection">
+            🏆 Stickers <span class="sticker-book-btn__count" id="stickerCount">0</span>
+          </button>
+          <button class="ai-planner-btn" id="aiPlannerBtn" title="AI Planner">
+            AI Planner
+          </button>
+          <div class="view-toggle" id="viewToggle">
+            <button class="view-toggle__btn view-toggle__btn--active" data-view="week">Week</button>
+            <button class="view-toggle__btn" data-view="month">Month</button>
+          </div>
+          <button class="btn btn--icon" id="prevBtn" aria-label="Previous">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span class="header__week-label" id="weekLabel"></span>
+          <button class="btn btn--icon" id="nextBtn" aria-label="Next">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="btn btn--small" id="todayBtn">Today</button>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="progress__info">
+          <span class="progress__label" id="progressLabel">0 of 0 tasks</span>
+          <span class="progress__pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress__track">
+          <div class="progress__fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Filter bar (pills rendered by JS) -->
+    <div class="filters" id="filters"></div>
+
+    <!-- Weekly grid -->
+    <main class="grid" id="grid"></main>
+
+    <!-- Sticker toast notification -->
+    <div class="sticker-toast" id="stickerToast">
+      <span class="sticker-toast__emoji">⭐</span>
+      <div>
+        <div class="sticker-toast__text">Sticker earned!</div>
+        <div class="sticker-toast__sub">80%+ tasks completed this week</div>
+      </div>
+    </div>
+
+    <!-- Sticker book modal -->
+    <dialog class="sticker-book" id="stickerBookModal">
+      <div class="sticker-book__header">
+        <h2 class="sticker-book__title">🏆 Sticker Collection</h2>
+        <p class="sticker-book__subtitle">0 stickers earned</p>
+      </div>
+      <div class="sticker-book__body"></div>
+      <div class="sticker-book__footer">
+        <button class="btn btn--secondary sticker-book__close">Close</button>
+      </div>
+    </dialog>
+
+    <!-- AI Planner modal -->
+    <dialog class="ai-planner" id="aiPlannerModal">
+      <!-- Input view -->
+      <div class="ai-planner__view" id="aiInputView">
+        <div class="ai-planner__header">
+          <h2 class="ai-planner__title">AI Planner</h2>
+          <p class="ai-planner__subtitle">Paste meeting notes, emails, or project briefs to extract tasks.</p>
+        </div>
+
+        <div class="ai-planner__key-bar">
+          <button class="ai-planner__key-toggle" id="aiKeyToggle" type="button">
+            <span class="ai-planner__key-dot ai-planner__key-dot--missing" id="aiKeyDot"></span>
+            API Key
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="ai-planner__key-section hidden" id="aiKeySection">
+          <label class="form-label" for="aiKeyInput">Anthropic API Key</label>
+          <div class="ai-planner__key-row">
+            <input class="form-input" type="password" id="aiKeyInput" placeholder="sk-ant-...">
+            <button class="btn btn--primary btn--small-sq" id="aiKeySaveBtn" type="button">Save</button>
+          </div>
+          <p class="ai-planner__key-hint">Your key is stored locally and never sent to any server except Anthropic's API.</p>
+        </div>
+
+        <div class="ai-planner__error hidden" id="aiError"></div>
+
+        <label class="form-label" for="aiTextarea">Paste your text</label>
+        <textarea class="form-input ai-planner__textarea" id="aiTextarea" rows="8" placeholder="Paste meeting notes, emails, project briefs, or any text with actionable items..."></textarea>
+
+        <div class="ai-planner__options">
+          <label class="form-label" for="aiDateHint">Date hint</label>
+          <select class="form-input ai-planner__date-hint" id="aiDateHint">
+            <option value="auto">Auto-detect</option>
+            <option value="this week">This week</option>
+            <option value="next week">Next week</option>
+            <option value="this month">This month</option>
+            <option value="next month">Next month</option>
+          </select>
+        </div>
+
+        <div class="ai-planner__actions">
+          <button class="btn btn--secondary" id="aiCancelBtn" type="button">Cancel</button>
+          <button class="btn btn--primary ai-planner__analyze-btn" id="aiAnalyzeBtn" type="button">Analyze with AI</button>
+        </div>
+      </div>
+
+      <!-- Loading view -->
+      <div class="ai-planner__view hidden" id="aiLoadingView">
+        <div class="ai-planner__loading">
+          <div class="ai-planner__spinner"></div>
+          <p class="ai-planner__loading-text">Analyzing your text...</p>
+          <p class="ai-planner__loading-sub">Extracting tasks and scheduling them</p>
+        </div>
+      </div>
+
+      <!-- Review view -->
+      <div class="ai-planner__view hidden" id="aiReviewView">
+        <div class="ai-planner__header">
+          <h2 class="ai-planner__title">Review Tasks</h2>
+          <p class="ai-planner__subtitle">Found <span id="aiReviewCount">0 tasks</span>. Edit, remove, or add all.</p>
+        </div>
+        <div class="ai-planner__review-list" id="aiReviewList"></div>
+        <div class="ai-planner__actions">
+          <button class="btn btn--secondary" id="aiReviewBack" type="button">Back</button>
+          <button class="btn btn--primary" id="aiAddAllBtn" type="button">Add All Tasks</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Categories modal -->
+    <dialog class="categories-modal" id="categoriesModal">
+      <div class="categories-modal__inner">
+        <h2 class="categories-modal__title">Manage Categories</h2>
+        <div class="categories-modal__list" id="categoriesList"></div>
+        <button class="btn btn--secondary categories-modal__add" id="addCategoryBtn" type="button">+ Add Category</button>
+        <div class="categories-modal__footer">
+          <button class="btn btn--primary" id="categoriesDoneBtn" type="button">Done</button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Task modal -->
+    <dialog class="modal" id="taskModal">
+      <form class="modal__form" id="taskForm" method="dialog">
+        <h2 class="modal__title" id="modalTitle">New Task</h2>
+
+        <label class="form-label" for="taskTitle">Title</label>
+        <input class="form-input" type="text" id="taskTitle" name="title" required maxlength="100" placeholder="What needs to be done?">
+
+        <fieldset class="form-fieldset">
+          <legend class="form-label">Category</legend>
+          <div class="radio-group" id="categoryRadios"></div>
+        </fieldset>
+
+        <fieldset class="form-fieldset">
+          <legend class="form-label">Priority</legend>
+          <div class="radio-group">
+            <label class="radio-pill">
+              <input type="radio" name="priority" value="high">
+              <span class="radio-pill__label radio-pill__label--high">High</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="priority" value="medium" checked>
+              <span class="radio-pill__label radio-pill__label--medium">Medium</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="priority" value="low">
+              <span class="radio-pill__label radio-pill__label--low">Low</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="modal__actions">
+          <button type="button" class="btn btn--danger hidden" id="deleteBtn">Delete</button>
+          <div class="modal__actions-right">
+            <button type="button" class="btn btn--secondary" id="cancelBtn">Cancel</button>
+            <button type="submit" class="btn btn--primary" id="saveBtn">Add Task</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/stickers.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
