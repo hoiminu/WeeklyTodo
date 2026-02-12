@@ -2,7 +2,7 @@
   "name": "Weekly To-Do Tracker",
   "short_name": "WeeklyTodo",
   "description": "Plan your week with a beautiful to-do tracker",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#4A8ED9",
