@@ -359,7 +359,7 @@
 
 @media (max-width: 768px) {
   .app {
-    padding: var(--sp-3);
+    padding: var(--sp-2);
   }
 
   .grid:not(.grid--month) {
@@ -391,14 +391,89 @@
     display: none;
   }
 
+  /* Compact header */
+  .header {
+    padding: var(--sp-3);
+    margin-bottom: var(--sp-2);
+  }
+
   .header__top {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-2);
+  }
+
+  .header__title {
+    font-size: var(--text-base);
+  }
+
+  .header__nav {
+    gap: var(--sp-1);
+    flex-wrap: wrap;
   }
 
   .header__week-label {
     min-width: unset;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+  }
+
+  /* Smaller nav buttons on mobile */
+  .header__nav .btn--icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header__nav .btn--icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .header__nav .btn--small {
+    padding: 2px var(--sp-2);
+    font-size: 0.65rem;
+  }
+
+  .header__nav .sticker-book-btn,
+  .header__nav .ai-planner-btn {
+    padding: 2px var(--sp-2);
+    font-size: var(--text-xs);
+  }
+
+  .header__nav .view-toggle__btn {
+    padding: 2px var(--sp-2);
+    font-size: 0.65rem;
+  }
+
+  /* Compact progress */
+  .progress {
+    gap: var(--sp-1);
+  }
+
+  .progress__track {
+    height: 4px;
+  }
+
+  /* Compact filters */
+  .filters {
+    margin-bottom: var(--sp-2);
+    gap: var(--sp-1);
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-pill {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 2px var(--sp-2);
+    font-size: var(--text-xs);
   }
 
   /* Month grid mobile */
