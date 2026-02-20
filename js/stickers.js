@@ -81,5 +81,12 @@ const Stickers = (() => {
     return award(weekKey, weekLabel, pct);
   }
 
-  return { getAll, hasSticker, checkAndAward, THRESHOLD };
+  /** Remove a sticker by weekKey */
+  function remove(weekKey) {
+    const data = _load();
+    data.stickers = data.stickers.filter(s => s.weekKey !== weekKey);
+    _save(data);
+  }
+
+  return { getAll, hasSticker, checkAndAward, remove, THRESHOLD };
 })();

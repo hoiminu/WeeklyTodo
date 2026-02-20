@@ -611,10 +611,17 @@ const UI = (() => {
       const slot = document.createElement('div');
       slot.className = 'sticker-slot sticker-slot--earned';
       slot.innerHTML = `
+        <button class="sticker-slot__delete" data-week-key="${s.weekKey}" title="Remove sticker">&times;</button>
         <span class="sticker-slot__emoji">${s.emoji}</span>
         <span class="sticker-slot__week">${s.weekLabel}</span>
         <span class="sticker-slot__pct">${s.pct}% done</span>
       `;
+      slot.querySelector('.sticker-slot__delete').addEventListener('click', (e) => {
+        e.stopPropagation();
+        Stickers.remove(s.weekKey);
+        updateStickerCount();
+        renderStickerBook();
+      });
       grid.appendChild(slot);
     });
 
