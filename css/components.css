@@ -521,6 +521,20 @@
   transition: all var(--duration) var(--ease);
 }
 
+.sticker-book-btn__icon {
+  width: 1.5em;
+  height: 1.5em;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.sticker-book__title-icon {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
 .sticker-book-btn:hover {
   background: linear-gradient(135deg, #DBB08A, #C49A6E);
   transform: scale(1.05);
@@ -598,15 +612,13 @@
 }
 
 .sticker-slot--earned {
-  border-style: solid;
-  border-color: transparent;
-  background: linear-gradient(135deg, #FFD9E6, #FFF3B0, #D8E2F0);
-  box-shadow: var(--shadow-sm);
+  border: none;
+  background: none;
+  box-shadow: none;
 }
 
 .sticker-slot--earned:hover {
   transform: scale(1.08);
-  box-shadow: var(--shadow);
 }
 
 .sticker-slot__delete {
@@ -636,6 +648,13 @@
 .sticker-slot__emoji {
   font-size: 2.5rem;
   line-height: 1;
+}
+
+.sticker-slot__img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
 }
 
 .sticker-slot__empty {

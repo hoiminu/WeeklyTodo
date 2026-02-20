@@ -573,7 +573,8 @@ const UI = (() => {
   /** Show sticker earned toast */
   function showStickerToast(sticker) {
     const toast = document.getElementById('stickerToast');
-    toast.querySelector('.sticker-toast__emoji').textContent = sticker.emoji;
+    const emojiEl = toast.querySelector('.sticker-toast__emoji');
+    emojiEl.innerHTML = `<img src="${Stickers.STICKER_IMAGE}" alt="Sticker" style="width:2rem;height:2rem;object-fit:contain;">`;
     toast.classList.add('sticker-toast--visible');
     updateStickerCount();
     setTimeout(() => toast.classList.remove('sticker-toast--visible'), 3000);
@@ -595,7 +596,6 @@ const UI = (() => {
     if (stickers.length === 0) {
       body.innerHTML = `
         <div class="sticker-book__empty">
-          <div class="sticker-book__empty-icon">🎯</div>
           <div class="sticker-book__empty-text">No stickers yet!</div>
           <div class="sticker-book__empty-hint">Complete 80% of your weekly tasks to earn stickers</div>
         </div>
@@ -612,7 +612,7 @@ const UI = (() => {
       slot.className = 'sticker-slot sticker-slot--earned';
       slot.innerHTML = `
         <button class="sticker-slot__delete" data-week-key="${s.weekKey}" title="Remove sticker">&times;</button>
-        <span class="sticker-slot__emoji">${s.emoji}</span>
+        <img class="sticker-slot__img" src="${Stickers.STICKER_IMAGE}" alt="Sticker">
         <span class="sticker-slot__week">${s.weekLabel}</span>
         <span class="sticker-slot__pct">${s.pct}% done</span>
       `;

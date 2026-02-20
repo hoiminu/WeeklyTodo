@@ -3,13 +3,7 @@ const Stickers = (() => {
   const STORAGE_KEY = 'weeklyTodo_stickers';
   const THRESHOLD = 0.8; // 80%
 
-  // Pool of stickers to randomly award
-  const STICKER_POOL = [
-    '⭐', '🌟', '🏆', '🎯', '🔥', '💪', '🚀', '🎉',
-    '✨', '💎', '🦄', '🌈', '🍀', '🎨', '🧠', '💡',
-    '🐝', '🦋', '🌸', '🍕', '🎵', '🎸', '🐶', '🐱',
-    '🦊', '🐼', '🐨', '🐙', '🌊', '⚡', '🌻', '🍭',
-  ];
+  const STICKER_IMAGE = 'icons/sticker.png';
 
   function _load() {
     try {
@@ -38,14 +32,6 @@ const Stickers = (() => {
     return _load().stickers.some(s => s.weekKey === weekKey);
   }
 
-  /** Pick a random sticker not recently used */
-  function _pickSticker(existing) {
-    const recent = existing.slice(-10).map(s => s.emoji);
-    const available = STICKER_POOL.filter(e => !recent.includes(e));
-    const pool = available.length > 0 ? available : STICKER_POOL;
-    return pool[Math.floor(Math.random() * pool.length)];
-  }
-
   /** Award a sticker for the given week */
   function award(weekKey, weekLabel, pct) {
     const data = _load();
@@ -54,7 +40,6 @@ const Stickers = (() => {
     const sticker = {
       weekKey,
       weekLabel,
-      emoji: _pickSticker(data.stickers),
       pct: Math.round(pct * 100),
       earnedAt: Date.now(),
     };
@@ -88,5 +73,5 @@ const Stickers = (() => {
     _save(data);
   }
 
-  return { getAll, hasSticker, checkAndAward, remove, THRESHOLD };
+  return { getAll, hasSticker, checkAndAward, remove, THRESHOLD, STICKER_IMAGE };
 })();
