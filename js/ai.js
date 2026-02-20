@@ -414,8 +414,11 @@ Rules:
       }
     });
 
-    // File upload
-    els.browseBtn.addEventListener('click', () => els.fileInput.click());
+    // File upload – clicking anywhere in the dropzone opens file picker
+    els.dropzone.addEventListener('click', (e) => {
+      if (e.target.closest('.ai-file-chip__remove')) return;
+      els.fileInput.click();
+    });
     els.fileInput.addEventListener('change', () => {
       if (els.fileInput.files.length) addFiles(els.fileInput.files);
       els.fileInput.value = '';
