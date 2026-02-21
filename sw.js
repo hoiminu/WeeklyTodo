@@ -1,4 +1,4 @@
-const CACHE_NAME = 'weeklytodo-v1';
+const CACHE_NAME = 'weeklytodo-v2';
 
 // Derive base path so it works on both localhost and /WeeklyTodo/ subpaths
 const BASE = self.registration.scope;
@@ -17,6 +17,8 @@ const ASSET_PATHS = [
   'js/ui.js',
   'js/ai.js',
   'js/app.js',
+  'icons/sticker.png',
+  'icons/sticker-book.png',
   'manifest.json',
 ];
 
